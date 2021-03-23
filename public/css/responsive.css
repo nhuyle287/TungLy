@@ -1,0 +1,52 @@
+body {
+    font-family: "Roboto";
+}
+
+.card-header-new {
+    background-image: linear-gradient(to top, #83abda, rgb(22, 53, 138));
+    color: whitesmoke;
+}
+.body-content{
+    padding: 2% 3% 3% 3%;
+}
+.form-group{
+    margin-bottom: 0.5rem !important;
+}
+.create{
+    margin-bottom: 2%;
+}
+.content-required {
+    color: red;
+}
+
+td p {
+    margin: 0px;
+}
+
+tr p {
+    margin: 0px;
+}
+
+.small-p {
+    color: gray;
+    font-size: 14px;
+}
+
+.form-group-left {
+    float: left;
+    width: 50%;
+}
+
+.form-group-right {
+    float: right;
+    width: 48%;
+}
+.button_{
+    margin-left: 0.25rem;
+}
+/*.custom-select{*/
+/*    height: auto;*/
+/*}*/
+
+
+
