@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Customer;
 use App\Models\Expenditure;
 use App\Models\Medical_Examination;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends AdminController
@@ -26,6 +27,9 @@ class HomeController extends AdminController
 
         $customers=Customer::all();
         $customer_count=$customers->count();
+        $_day=Carbon::now()->day;
+        $_month=Carbon::now()->month;
+        $_year=Carbon::now()->year;
         $medical_examination=DB::table('medical_examinations')->whereYear('created_at', '=', date('Y'))->count();
         $day=['Ngày 1','Ngày 2','Ngày 3','Ngày 4','Ngày 5','Ngày 6','Ngày 7','Ngày 8','Ngày 9','Ngày 10',
             'Ngày 11','Ngày 12','Ngày 13','Ngày 14','Ngày 15','Ngày 16','Ngày 17','Ngày 18','Ngày 19','Ngày 20',
@@ -35,11 +39,11 @@ class HomeController extends AdminController
         $day_=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31];
         $price_day=[];
         foreach ($day_ as $key => $value) {
-            $price_day[] = Medical_Examination::whereDay('medical_examinations.date_examination', '=', $value)->sum('medical_examinations.total_price');
+            $price_day[] = Medical_Examination::whereDay('medical_examinations.date_examination', '=', $value)->whereMonth('medical_examinations.date_examination', '=',(int)$_month)->whereYear('medical_examinations.date_examination', '=',(int)$_year)->sum('medical_examinations.total_price');
         }
         $price_day_expenditure=[];
         foreach ($day_ as $key => $value) {
-            $price_day_expenditure[] = Expenditure::whereDay('expenditures.date', '=', $value)->sum('expenditures.price');
+            $price_day_expenditure[] = Expenditure::whereDay('expenditures.date', '=', $value)->whereMonth('expenditures.date', '=',(int)$_month)->whereYear('expenditures.date', '=',(int)$_year)->sum('expenditures.price');
         }
         $month = ['Tháng 1','Tháng 2','Tháng 3','Tháng 4','Tháng 5','Tháng 6','Tháng 7',
             'Tháng 8','Tháng 9','Tháng 10','Tháng 11','Tháng 12'];
@@ -48,12 +52,12 @@ class HomeController extends AdminController
         $month_=[1,2,3,4,5,6,7,8,9,10,11,12];
         $year=DB::table('medical_examinations')->select(DB::raw('Year(medical_examinations.date_examination) as year'))->distinct()->get();
         foreach ($month_ as $key => $value) {
-            $price[] = Medical_Examination::whereMonth('medical_examinations.date_examination', '=', $value)->sum('medical_examinations.total_price');
+            $price[] = Medical_Examination::whereMonth('medical_examinations.date_examination', '=', $value)->whereYear('medical_examinations.date_examination', '=',(int)$_year)->sum('medical_examinations.total_price');
         }
 
         $price_expenditure=[];
         foreach ($month_ as $key => $value) {
-            $price_expenditure[] = Expenditure::whereMonth('expenditures.date', '=', $value)->sum('expenditures.price');
+            $price_expenditure[] = Expenditure::whereMonth('expenditures.date', '=', $value)->whereYear('expenditures.date', '=',(int)$_year)->sum('expenditures.price');
         }
 
         $price_year=[];
