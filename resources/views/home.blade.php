@@ -131,7 +131,7 @@
                 }
 
                 var barChartDataYear = {
-                    labels: year_list,
+                    labels:year_list,
                     datasets: [{
                         label: "Thu",
                         backgroundColor: "pink",

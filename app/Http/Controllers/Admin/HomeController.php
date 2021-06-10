@@ -27,7 +27,6 @@ class HomeController extends AdminController
 
         $customers=Customer::all();
         $customer_count=$customers->count();
-        $_day=Carbon::now()->day;
         $_month=Carbon::now()->month;
         $_year=Carbon::now()->year;
         $medical_examination=DB::table('medical_examinations')->whereYear('created_at', '=', date('Y'))->count();
